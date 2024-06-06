@@ -41,7 +41,7 @@ export const Signup = async (req, res, next) => {
 };
 
 export const Login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
   try {
     if (!email || !password) {
       return res.json({ message: "The fields are required " });
@@ -73,6 +73,7 @@ export const Login = async (req, res, next) => {
     });
 
     res.json({
+      role: user.role,
       token,
     });
   } catch (error) {
