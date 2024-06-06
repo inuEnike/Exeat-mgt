@@ -59,7 +59,7 @@ export const createExeat = async (req, res, next) => {
       !level ||
       !studentContact
     ) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.json({ message: "All fields are required" });
     }
 
     const newExeat = new Exeat({
@@ -86,7 +86,7 @@ export const createExeat = async (req, res, next) => {
     }).populate("ChiefPorter");
 
     if (!SinglechiefPorter) {
-      return res.json({ msg: "Not a valid chief Porter" });
+      return res.json({ message: "Not a valid chief Porter" });
     }
 
     let ChiefPorterEmail = SinglechiefPorter.ChiefPorter.email;
