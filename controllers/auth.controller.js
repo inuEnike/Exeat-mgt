@@ -44,20 +44,21 @@ export const Login = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
-      return res.status(400).json({ message: "The fields are required " });
+      return res.json({ message: "The fields are required " });
+      // return res.status(400).json({ message: "The fields are required " });
     }
 
     const user = await Auth.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ message: "Invalid Credentials" });
+      return res.json({ message: "Invalid Credentials" });
     }
 
     // Compare the password
     const comparePassword = await bcrypt.compare(password, user.password);
 
     if (!comparePassword) {
-      return res.status(401).json({ message: "Invalid Credential Provided" });
+      return res.json({ message: "Invalid Credential Provided" });
     }
 
     // const data = {
