@@ -1,5 +1,6 @@
 import express from "express";
 const app = express();
+import cors from "cors";
 import HostelRoutes from "./routes/hostel.route.js";
 import ExeatRoutes from "./routes/exeat.route.js";
 import AuthRoutes from "./routes/auth.route.js";
@@ -9,6 +10,7 @@ import { errorHandler } from "./middleware/error.middleware.js";
 
 const PORT = 1954;
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/auth", AuthRoutes);
