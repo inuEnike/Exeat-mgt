@@ -7,7 +7,10 @@ export const validateExeatId = async (req, res, next) => {
     if (!exeatId) {
       return res.json({ msg: "The filelds are important" });
     }
-    const exeat = await Exeat.findOne({ exeatId });
+    const exeat = await Exeat.findOne({ exeatId }).populate(
+      "ChiefPorter",
+      "name email"
+    );
 
     if (!exeat) {
       return res.json({ message: "Exeat ID not found" });
