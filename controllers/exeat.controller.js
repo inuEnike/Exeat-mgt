@@ -43,6 +43,7 @@ export const createExeat = async (req, res, next) => {
     level,
     studentContact,
     ChiefPorter,
+    exeatId,
   } = req.body;
 
   try {
@@ -113,6 +114,21 @@ export const createExeat = async (req, res, next) => {
           <li>Destination: ${destination}</li>
         </ul>
         <p>Please review it and take necessary actions.</p>
+      `, // HTML body
+    });
+
+    await transporter.sendMail({
+      from: "ochinyabostella@gmail.com", // sender address
+      to: email,
+      subject: "New Exeat Request", // Email subject
+      text: `Your New Exeat Request`, // Plain text body
+      html: `
+          <li>Exeat id: ${newExeat.exeatId}</li>
+          <li>Student's Matriculation Number: ${matNo}</li>
+          <li>Student's Department: ${department}</li>
+          <li>Student's Hostel: ${hostel}</li>
+        </ul>
+        <p>for more information use your exeat id to track your exeat</p>
       `, // HTML body
     });
 
