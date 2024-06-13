@@ -237,7 +237,6 @@ export const updateExeat = async (req, res, next) => {
                    chiefPorterTickedApproved
                  ).toUpperCase()}</li>
                  <li>Approved By: ${FindExeat.ChiefPorter.name}</li>
-                 // <li>Approved By: ${FindExeat.Dean.name}</li>
                </ul>
                <p>Please check the portal for more details.</p>`,
       });
