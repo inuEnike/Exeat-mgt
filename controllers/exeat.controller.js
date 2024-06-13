@@ -232,12 +232,12 @@ export const updateExeat = async (req, res, next) => {
                  <li>Date of Return: ${dateOfReturn}</li>
                  <li>Parent Contact: ${parentContact}</li>
                  <li>Destination: ${destination}</li>
-                 <li>Approved: ${String(deanTickedApproved).toUpperCase()}</li>
-                 <li>Approved: ${String(
+                 <li>Approved by Dean: ${String(deanTickedApproved).toUpperCase()}</li>
+                 <li>Approved By Chief Porter: ${String(
                    chiefPorterTickedApproved
                  ).toUpperCase()}</li>
                  <li>Approved By: ${FindExeat.ChiefPorter.name}</li>
-                 <li>Approved By: ${FindExeat.Dean.name}</li>
+                 // <li>Approved By: ${FindExeat.Dean.name}</li>
                </ul>
                <p>Please check the portal for more details.</p>`,
       });
