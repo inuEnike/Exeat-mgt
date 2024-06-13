@@ -189,7 +189,7 @@ export const updateExeat = async (req, res, next) => {
     console.log(FindExeat);
     // Check if exeat exists
     if (!FindExeat) {
-      return res.status(404).json({ message: `Exeat with ID ${id} not found` });
+      return res.json({ message: `Exeat with ID ${id} not found` });
     }
 
     // Send email notification if chief porter ticked approved
@@ -243,7 +243,7 @@ export const updateExeat = async (req, res, next) => {
       });
     }
 
-    res.status(201).json({
+    res.json({
       message: `Exeat request with the id of ${id} has been updated successfully`,
     });
   } catch (error) {
