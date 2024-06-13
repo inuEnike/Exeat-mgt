@@ -243,7 +243,7 @@ export const updateExeat = async (req, res, next) => {
     }
 
     res.json({
-      message: `Exeat request with the id of ${id} has been updated successfully`,
+      SuccessMessage: `Exeat request with the id of ${id} has been updated successfully`,
     });
   } catch (error) {
     next(error);
