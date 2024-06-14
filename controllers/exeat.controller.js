@@ -192,7 +192,7 @@ export const updateExeat = async (req, res, next) => {
     console.log(FindExeat);
     // Check if exeat exists
     if (!FindExeat) {
-      return res.status(404).json({ message: `Exeat with ID ${id} not found` });
+      return res.json({ message: `Exeat with ID ${id} not found` });
     }
 
     // Send email notification if chief porter ticked approved
@@ -235,18 +235,17 @@ export const updateExeat = async (req, res, next) => {
                  <li>Date of Return: ${dateOfReturn}</li>
                  <li>Parent Contact: ${parentContact}</li>
                  <li>Destination: ${destination}</li>
-                 <li>Approved: ${String(deanTickedApproved).toUpperCase()}</li>
-                 <li>Approved: ${String(
+                 <li>Approved by Dean: ${String(deanTickedApproved).toUpperCase()}</li>
+                 <li>Approved By Chief Porter: ${String(
                    chiefPorterTickedApproved
                  ).toUpperCase()}</li>
                  <li>Approved By: ${FindExeat.ChiefPorter.name}</li>
-                 <li>Approved By: ${FindExeat.Dean.name}</li>
                </ul>
                <p>Please check the portal for more details.</p>`,
       });
     }
 
-    res.status(201).json({
+    res.json({
       message: `Exeat request with the id of ${id} has been updated successfully`,
     });
   } catch (error) {
