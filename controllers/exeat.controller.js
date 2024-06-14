@@ -137,7 +137,7 @@ export const createExeat = async (req, res, next) => {
 
     res
       .status(201)
-      .json({ message: "Exeat request created successfully", exeat: newExeat });
+      .json({ successMessage: "Exeat request created successfully", exeat: newExeat });
   } catch (error) {
     next(error);
   }
@@ -246,7 +246,7 @@ export const updateExeat = async (req, res, next) => {
     }
 
     res.json({
-      message: `Exeat request with the id of ${id} has been updated successfully`,
+      successMessage: `Exeat request with the id of ${id} has been updated successfully`,
     });
   } catch (error) {
     next(error);
