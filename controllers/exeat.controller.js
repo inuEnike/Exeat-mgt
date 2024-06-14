@@ -1,3 +1,4 @@
+import { Auth } from "../models/auth.model.js";
 import { Exeat } from "../models/exeat.model.js";
 import { transporter } from "../utils/mail.js";
 
@@ -43,7 +44,7 @@ export const createExeat = async (req, res, next) => {
     level,
     studentContact,
     ChiefPorter,
-    exeatId,
+    Dean,
   } = req.body;
 
   try {
@@ -62,7 +63,8 @@ export const createExeat = async (req, res, next) => {
     ) {
       return res.json({ message: "All fields are required" });
     }
-
+    const populateDean = await Auth.findOne({ Dean });
+    console.log(populateDean);
     const newExeat = new Exeat({
       name,
       email,
@@ -78,6 +80,7 @@ export const createExeat = async (req, res, next) => {
       parentContact,
       destination,
       ChiefPorter,
+      Dean: populateDean,
     });
 
     await newExeat.save();
