@@ -59,13 +59,6 @@ export const updateHostel = async (req, res, next) => {
     return res.status(404).json({ errorMessage: "Invalid hostel ID" });
   }
 
-  // Check if required fields are empty
-  if (!chiefPorter || !name) {
-    return res
-      .status(400)
-      .json({ errorMessage: "Chief porter and name are required" });
-  }
-
   try {
     // Find hostel by id and update its details
     const updatedHostel = await Hostels.findByIdAndUpdate(
