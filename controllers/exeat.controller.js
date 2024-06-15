@@ -135,12 +135,10 @@ export const createExeat = async (req, res, next) => {
       `, // HTML body
     });
 
-    res
-      .status(201)
-      .json({
-        successMessage: "Exeat request created successfully",
-        exeat: newExeat,
-      });
+    res.status(201).json({
+      successMessage: "Exeat request created successfully",
+      exeat: newExeat,
+    });
   } catch (error) {
     next(error);
   }
@@ -272,6 +270,30 @@ export const deleteExeat = async (req, res, next) => {
   const { id } = req.params;
   try {
     const exeat = await Exeat.findByIdAndDelete(id);
+    res.json({ exeat });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getExeatByChiefPorter = async (req, res, next) => {
+  try {
+    // Ensure req.admin and req.admin.role are properly defined
+    if (!req.admin || req.admin.role !== "ChiefPorter") {
+      return res
+        .status(403)
+        .json({ message: "Access denied. Not a ChiefPorter." });
+    }
+    console.log(req.admin);
+    // Retrieve the authenticated user's ID
+    const chiefPorterId = req.admin._id;
+    console.log(chiefPorterId);
+
+    // Find exeat documents where chiefPorter matches the authenticated user's ID
+    const exeat = await Exeat.find({ ChiefPorter: chiefPorterId });
+    // const exeat = await Exeat.find({ chiefPorter });
+
+    // Respond with the found exeat documents
     res.json({ exeat });
   } catch (error) {
     next(error);
