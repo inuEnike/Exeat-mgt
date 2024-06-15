@@ -83,7 +83,7 @@ export const Login = async (req, res, next) => {
 export const getChiefPorters = async (_req, res, next) => {
   try {
     const role = "ChiefPorter"; // Define the role variable
-    const getPorters = await Auth.findOne({ role });
+    const getPorters = await Auth.find({ role });
     res.json({ getPorters });
   } catch (error) {
     next(error);
