@@ -80,3 +80,12 @@ export const Login = async (req, res, next) => {
     next(error);
   }
 };
+export const getChiefPorters = async (_req, res, next) => {
+  try {
+    const role = "ChiefPorter"; // Define the role variable
+    const getPorters = await Auth.findOne({ role });
+    res.json({ getPorters });
+  } catch (error) {
+    next(error);
+  }
+};
