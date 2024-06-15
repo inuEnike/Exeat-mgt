@@ -8,13 +8,20 @@ export const getAllExeats = async (req, res, next) => {
     const limit = 5;
 
     const skip = (page - 1) * limit;
-    let exeatQuery = Exeat.find({}).populate("ChiefPorter Dean");
+    // Fetch the total count of exeat documents for pagination info
+    const totalExeats = await Exeat.countDocuments({});
+    let exeatQuery = Exeat.find({}).populate("ChiefPorter Dean hostel");
     if (!page || page < 0) {
       const exeat = await exeatQuery;
       res.json({ exeats: exeat });
     } else {
       const exeat = await exeatQuery.skip(skip).limit(limit);
-      res.json({ exeats: exeat, totalExeats: exeat.length });
+
+      res.json({
+        exeats: exeat,
+        totalExeats: exeat.length,
+        totalPages: Math.ceil(totalExeats / limit),
+      });
     }
   } catch (error) {
     next(error);
@@ -278,23 +285,41 @@ export const deleteExeat = async (req, res, next) => {
 
 export const getExeatByChiefPorter = async (req, res, next) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    const skip = (page - 1) * limit;
+
     // Ensure req.admin and req.admin.role are properly defined
     if (!req.admin || req.admin.role !== "ChiefPorter") {
       return res
         .status(403)
         .json({ message: "Access denied. Not a ChiefPorter." });
     }
-    console.log(req.admin);
+
     // Retrieve the authenticated user's ID
     const chiefPorterId = req.admin._id;
-    console.log(chiefPorterId);
 
     // Find exeat documents where chiefPorter matches the authenticated user's ID
-    const exeat = await Exeat.find({ ChiefPorter: chiefPorterId });
-    // const exeat = await Exeat.find({ chiefPorter });
+    const exeatQuery = Exeat.find({ ChiefPorter: chiefPorterId })
+      .skip(skip)
+      .limit(limit)
+      .populate("ChiefPorter Dean hostel");
 
-    // Respond with the found exeat documents
-    res.json({ exeat });
+    // Fetch the total count of exeat documents for pagination info
+    const totalExeats = await Exeat.countDocuments({
+      ChiefPorter: chiefPorterId,
+    });
+
+    // Execute the query
+    const exeats = await exeatQuery;
+
+    // Respond with the found exeat documents and pagination info
+    res.json({
+      exeats,
+      totalExeats,
+      page,
+      totalPages: Math.ceil(totalExeats / limit),
+    });
   } catch (error) {
     next(error);
   }
