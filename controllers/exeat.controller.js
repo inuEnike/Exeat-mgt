@@ -137,7 +137,10 @@ export const createExeat = async (req, res, next) => {
 
     res
       .status(201)
-      .json({ successMessage: "Exeat request created successfully", exeat: newExeat });
+      .json({
+        successMessage: "Exeat request created successfully",
+        exeat: newExeat,
+      });
   } catch (error) {
     next(error);
   }
